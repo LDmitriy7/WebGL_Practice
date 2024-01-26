@@ -1,6 +1,5 @@
-import { CircleMaterial } from "./shaders/circle"
-import { PointMaterial, PointShaderProgram } from "./shaders/point"
-import { Vec2, createCanvas, getGl, getMousePosition } from "./utils"
+import { CircleMaterial } from "../shaders/circle"
+import { Vec2, createCanvas, getGl, getMousePosition } from "../utils"
 
 const canvas = createCanvas()
 const gl = getGl(canvas)
