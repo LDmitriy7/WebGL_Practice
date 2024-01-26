@@ -5,6 +5,7 @@ import { canvas, gl } from "../loader"
 const material = new CircleMaterial(gl)
 material.canvasSize = [canvas.width, canvas.height]
 material.circleSize = 30
+material.color = [0, 1, 0, 1]
 material.use()
 
 function draw(position: Vec2) {
