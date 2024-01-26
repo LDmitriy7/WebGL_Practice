@@ -1,2 +1,2 @@
 // import "./main/drawPoints"
-import "./main/processImage"
+import "./main/drawImage"
