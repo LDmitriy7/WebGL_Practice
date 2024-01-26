@@ -1,11 +1,6 @@
 import { CircleMaterial } from "../shaders/circle"
-import { Vec2, createCanvas, getGl, getMousePosition } from "../utils"
-
-const canvas = createCanvas()
-const gl = getGl(canvas)
-
-gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA)
-gl.enable(gl.BLEND)
+import { Vec2, getMousePosition } from "../utils"
+import { canvas, gl } from "../loader"
 
 const material = new CircleMaterial(gl)
 material.canvasSize = [canvas.width, canvas.height]
