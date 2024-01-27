@@ -5,7 +5,7 @@ export class Program {
   private uniformLocations: Record<string, WebGLUniformLocation> = {}
 
   // TODO: private
-  constructor(private ctx: WebGL2RenderingContext, public base: WebGLProgram) {}
+  constructor(public ctx: WebGL2RenderingContext, public base: WebGLProgram) {}
 
   getUniformLocation(name: string) {
     const { uniformLocations: locs } = this

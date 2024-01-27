@@ -5,6 +5,15 @@ import { Shader } from "./shader"
 export class Gl {
   constructor(private base: WebGL2RenderingContext) {}
 
+  get canvas() {
+    return this.base.canvas
+  }
+
+  drawPoints(count: number) {
+    const { base } = this
+    base.drawArrays(base.POINTS, 0, count)
+  }
+
   createProgramFromSources(sources: ShaderSources) {
     return createProgramFromSources(this, sources)
   }
@@ -35,11 +44,6 @@ export class Gl {
 
   useProgram(program: WebGLProgram) {
     this.base.useProgram(program)
-  }
-
-  drawPoints(count: number) {
-    const { base } = this
-    base.drawArrays(base.POINTS, 0, count)
   }
 
   private _createVertexShader() {

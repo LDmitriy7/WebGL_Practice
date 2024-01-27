@@ -1,30 +1,27 @@
 import { PointShader } from "./shaders/point"
 import { Vec4, Vec2, GL } from "../utils"
+import { Gl } from "../gl"
 
 export class PointMaterial {
   pointSize = 1
   color: Vec4 = [1, 1, 1, 1]
-  canvasSize: Vec2 = [2, 2]
+  resolution: Vec2
   private shader: PointShader
-  private _position: Vec2 = [0, 0]
 
-  constructor(gl: GL) {
+  constructor(gl: Gl) {
     this.shader = PointShader.get(gl)
+    this.resolution = [gl.canvas.width, gl.canvas.height]
   }
 
-  public get position(): Vec2 {
-    return this._position
-  }
-  public set position(value: Vec2) {
-    this._position = value
-    this.shader.position = value
+  draw(position: Vec2) {
+    this.shader.draw(position)
   }
 
-  use() {
+  update() {
     const { shader } = this
     shader.use()
     shader.pointSize = this.pointSize
     shader.color = this.color
-    shader.resolution = this.canvasSize
+    shader.resolution = this.resolution
   }
 }

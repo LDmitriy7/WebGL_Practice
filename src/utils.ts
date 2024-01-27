@@ -101,7 +101,7 @@ export class Shader {
   }
 
   use() {
-    this._gl.useProgram(this._program)
+    this.program.use()
   }
 
   // TODO: cache
