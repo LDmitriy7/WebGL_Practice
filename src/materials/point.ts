@@ -1,4 +1,4 @@
-import { PointShader } from "../shaders/point"
+import { PointShader } from "./shaders/point"
 import { Vec4, Vec2, GL } from "../utils"
 
 export class PointMaterial {
@@ -25,6 +25,6 @@ export class PointMaterial {
     shader.use()
     shader.pointSize = this.pointSize
     shader.color = this.color
-    shader.canvasSize = this.canvasSize
+    shader.resolution = this.canvasSize
   }
 }

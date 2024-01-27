@@ -1,5 +1,5 @@
 import { gl } from "../loader"
-import { ImageShaderProgram } from "../shaders/image"
+import { ImageShaderProgram } from "../_temp/image"
 
 const shaderProgram = ImageShaderProgram.get(gl)
 var image = new Image()

@@ -1,4 +1,4 @@
-import { CircleMaterial } from "../shaders/circle"
+import { CircleMaterial } from "../_temp/circle"
 import { Vec2, getMousePosition } from "../utils"
 import { canvas, gl } from "../loader"
 

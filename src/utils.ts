@@ -67,17 +67,6 @@ export class ShaderSources {
   constructor(public vertex: string, public fragment: string) {}
 }
 
-function setUniform(gl: GL, program: WebGLProgram, key: string, value: number) {
-  const loc = getUniformLocation(gl, program, key)
-  gl.uniform1f(loc, value)
-}
-
-function getUniformLocation(gl: GL, program: WebGLProgram, key: string) {
-  const loc = gl.getUniformLocation(program, key)
-  if (!loc) throw new Error(`Uniform ${key} not found`)
-  return loc
-}
-
 function getAttrLocation(gl: GL, program: WebGLProgram, key: string) {
   const loc = gl.getAttribLocation(program, key)
   if (loc == null) throw new Error(`Attribute ${key} not found`)
@@ -116,11 +105,6 @@ export class Shader {
   }
 
   // TODO: cache
-  getUniformLocation(key: string) {
-    return getUniformLocation(this._gl, this._program, key)
-  }
-
-  // TODO: cache
   getAttrLocation(key: string) {
     return getAttrLocation(this._gl, this._program, key)
   }
@@ -129,24 +113,21 @@ export class Shader {
     this.program.setUniform(name, value)
   }
 
-  setUniformInt(key: string, value: number) {
-    const loc = this.getUniformLocation(key)
-    this._gl.uniform1i(loc, value)
+  setUniformInt(name: string, value: number) {
+    this.program.setUniformInt(name, value)
   }
 
-  setUniformVec2(key: string, values: Vec2) {
-    const loc = this.getUniformLocation(key)
-    this._gl.uniform2f(loc, ...values)
+  setUniformVec2(name: string, values: Vec2) {
+    this.program.setUniformVec2(name, values)
   }
 
-  setCanvasSize(key: string) {
+  setUniformVec4(name: string, values: Vec4) {
+    this.program.setUniformVec4(name, values)
+  }
+
+  setCanvasSize(name: string) {
     const canvas = this._gl.canvas
-    this.setUniformVec2(key, [canvas.width, canvas.height])
-  }
-
-  setUniformVec4(key: string, values: Vec4) {
-    const loc = this.getUniformLocation(key)
-    this._gl.uniform4f(loc, ...values)
+    this.setUniformVec2(name, [canvas.width, canvas.height])
   }
 
   enableVertexAttribArray(key: string) {

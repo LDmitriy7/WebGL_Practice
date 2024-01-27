@@ -1,5 +1,5 @@
-import { pointShaderSources } from "../shaderSources/point"
-import { GL, Shader, Vec2, Vec4 } from "../utils"
+import { pointShaderSources } from "./sources/point"
+import { GL, Shader, Vec2, Vec4 } from "../../utils"
 
 export class PointShader extends Shader {
   static instance?: PointShader
@@ -20,7 +20,7 @@ export class PointShader extends Shader {
     this.setUniformVec2("u_position", value)
   }
 
-  set canvasSize(value: Vec2) {
+  set resolution(value: Vec2) {
     this.setUniformVec2("u_resolution", value)
   }
 }

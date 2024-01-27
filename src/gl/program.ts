@@ -23,6 +23,12 @@ export class Program {
     ctx.uniform1f(loc, value)
   }
 
+  setUniformInt(name: string, value: number) {
+    const { ctx } = this
+    const loc = this.getUniformLocation(name)
+    ctx.uniform1i(loc, value)
+  }
+
   setUniformVec2(name: string, value: Vec2) {
     const { ctx } = this
     const loc = this.getUniformLocation(name)
