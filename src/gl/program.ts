@@ -4,6 +4,7 @@ type Vec4 = [number, number, number, number]
 export class Program {
   private uniformLocations: Record<string, WebGLUniformLocation> = {}
 
+  // TODO: private
   constructor(private ctx: WebGL2RenderingContext, public base: WebGLProgram) {}
 
   getUniformLocation(name: string) {

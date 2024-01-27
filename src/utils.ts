@@ -1,4 +1,5 @@
 import { Gl } from "./gl"
+import { Program } from "./gl/program"
 
 export type GL = WebGL2RenderingContext
 
@@ -101,30 +102,31 @@ export class Shader {
 
   _program: WebGLProgram // TODO: private
   gl: Gl
+  program: Program
 
   constructor(protected _gl: GL, shaderSources: ShaderSources) {
-    this._program = createShaderProgram(_gl, shaderSources)
-    this.use()
     this.gl = new Gl(_gl)
+    this.program = this.gl.createProgramFromSources(shaderSources)
+    this._program = this.program.base
+    this.use()
   }
 
   use() {
     this._gl.useProgram(this._program)
   }
 
-  // // TODO: cache
-  // getUniformLocation(key: string) {
-  //   return getUniformLocation(this._gl, this.program, key)
-  // }
+  // TODO: cache
+  getUniformLocation(key: string) {
+    return getUniformLocation(this._gl, this._program, key)
+  }
 
-  // // TODO: cache
-  // getAttrLocation(key: string) {
-  //   return getAttrLocation(this._gl, this.program, key)
-  // }
+  // TODO: cache
+  getAttrLocation(key: string) {
+    return getAttrLocation(this._gl, this._program, key)
+  }
 
-  setUniform(key: string, value: number) {
-    const loc = this.getUniformLocation(key)
-    this._gl.uniform1f(loc, value)
+  setUniform(name: string, value: number) {
+    this.program.setUniform(name, value)
   }
 
   setUniformInt(key: string, value: number) {
