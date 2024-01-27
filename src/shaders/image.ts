@@ -1,4 +1,4 @@
-import { GL, ShaderProgram, ShaderSources } from "../utils"
+import { GL, Shader, ShaderSources } from "../utils"
 
 const vSource = `#version 300 es
 in vec2 a_position;
@@ -28,21 +28,7 @@ void main() {
 
 const sources = new ShaderSources(vSource, fSource)
 
-class _ShaderProgram extends ShaderProgram {
-  static instance?: _ShaderProgram
-
-  protected static _get<T extends typeof _ShaderProgram>(
-    gl: GL,
-    shaderClass: T,
-    shaderSources: ShaderSources
-  ) {
-    if (!shaderClass.instance)
-      shaderClass.instance = new shaderClass(gl, shaderSources)
-    return shaderClass.instance as InstanceType<T>
-  }
-}
-
-export class ImageShaderProgram extends _ShaderProgram {
+export class ImageShaderProgram extends Shader {
   static get(gl: GL) {
     return this._get(gl, ImageShaderProgram, sources)
   }
@@ -53,7 +39,7 @@ export class ImageShaderProgram extends _ShaderProgram {
   }
 
   private init() {
-    const { gl } = this
+    const { _gl: gl } = this
     this.setCanvasSize("u_canvasSize")
     this.createBuffer("a_texCoord")
     gl.bufferData(
@@ -81,7 +67,7 @@ export class ImageShaderProgram extends _ShaderProgram {
 
   draw(image: HTMLImageElement) {
     this.setTextureData(image)
-    this.setPositions(this.gl, 0, 0, image.width, image.height)
+    this.setPositions(this._gl, 0, 0, image.width, image.height)
     this.drawTriangles(6)
   }
 }

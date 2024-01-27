@@ -1,4 +1,4 @@
-import { GL, ShaderProgram, ShaderSources, Vec2, Vec4 } from "../utils"
+import { GL, Shader, ShaderSources, Vec2, Vec4 } from "../utils"
 
 const vSource = `
 uniform vec2 uPosition;
@@ -33,7 +33,7 @@ void main()
 
 export const sources = new ShaderSources(vSource, fSource)
 
-export class CircleShaderProgram extends ShaderProgram {
+export class CircleShaderProgram extends Shader {
   static instance?: CircleShaderProgram
 
   private constructor(gl: GL) {

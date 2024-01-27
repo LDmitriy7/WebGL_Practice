@@ -1,3 +1,5 @@
+import { Gl } from "./gl"
+
 export type GL = WebGL2RenderingContext
 
 export function getGl(canvas: HTMLCanvasElement): GL {
@@ -84,60 +86,74 @@ function getAttrLocation(gl: GL, program: WebGLProgram, key: string) {
 export type Vec2 = [number, number]
 export type Vec4 = [number, number, number, number]
 
-export class ShaderProgram {
-  program: WebGLProgram // TODO: private
+export class Shader {
+  static instance?: Shader
 
-  constructor(protected gl: GL, shaderSources: ShaderSources) {
-    this.program = createShaderProgram(gl, shaderSources)
+  protected static _get<T extends typeof Shader>(
+    gl: GL,
+    shaderClass: T,
+    shaderSources: ShaderSources
+  ) {
+    if (!shaderClass.instance)
+      shaderClass.instance = new shaderClass(gl, shaderSources)
+    return shaderClass.instance as InstanceType<T>
+  }
+
+  _program: WebGLProgram // TODO: private
+  gl: Gl
+
+  constructor(protected _gl: GL, shaderSources: ShaderSources) {
+    this._program = createShaderProgram(_gl, shaderSources)
     this.use()
+    this.gl = new Gl(_gl)
   }
 
   use() {
-    this.gl.useProgram(this.program)
+    this._gl.useProgram(this._program)
   }
 
-  // TODO: cache
-  getUniformLocation(key: string) {
-    return getUniformLocation(this.gl, this.program, key)
-  }
+  // // TODO: cache
+  // getUniformLocation(key: string) {
+  //   return getUniformLocation(this._gl, this.program, key)
+  // }
 
-  // TODO: cache
-  getAttrLocation(key: string) {
-    return getAttrLocation(this.gl, this.program, key)
-  }
+  // // TODO: cache
+  // getAttrLocation(key: string) {
+  //   return getAttrLocation(this._gl, this.program, key)
+  // }
 
   setUniform(key: string, value: number) {
     const loc = this.getUniformLocation(key)
-    this.gl.uniform1f(loc, value)
+    this._gl.uniform1f(loc, value)
   }
 
   setUniformInt(key: string, value: number) {
     const loc = this.getUniformLocation(key)
-    this.gl.uniform1i(loc, value)
+    this._gl.uniform1i(loc, value)
   }
 
   setUniformVec2(key: string, values: Vec2) {
     const loc = this.getUniformLocation(key)
-    this.gl.uniform2f(loc, ...values)
+    this._gl.uniform2f(loc, ...values)
   }
 
   setCanvasSize(key: string) {
-    const canvas = this.gl.canvas
+    const canvas = this._gl.canvas
     this.setUniformVec2(key, [canvas.width, canvas.height])
   }
 
   setUniformVec4(key: string, values: Vec4) {
     const loc = this.getUniformLocation(key)
-    this.gl.uniform4f(loc, ...values)
+    this._gl.uniform4f(loc, ...values)
   }
 
   enableVertexAttribArray(key: string) {
     const loc = this.getAttrLocation(key)
-    this.gl.enableVertexAttribArray(loc)
+    this._gl.enableVertexAttribArray(loc)
   }
 
   createTexture() {
-    const { gl } = this
+    const { _gl: gl } = this
     const texture = gl.createTexture()
     gl.bindTexture(gl.TEXTURE_2D, texture)
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE)
@@ -148,14 +164,14 @@ export class ShaderProgram {
   }
 
   drawTriangles(vertexCount: number) {
-    const { gl } = this
+    const { _gl: gl } = this
     const primitiveType = gl.TRIANGLES
     const offset = 0
     gl.drawArrays(primitiveType, offset, vertexCount)
   }
 
   setTextureData(image: HTMLImageElement) {
-    const { gl } = this
+    const { _gl: gl } = this
     const mipLevel = 0
     const srcFormat = gl.RGBA
     const internalFormat = gl.RGBA
@@ -171,7 +187,7 @@ export class ShaderProgram {
   }
 
   vertexAttribPointer(key: string, componentSize?: number) {
-    const { gl } = this
+    const { _gl: gl } = this
     const type = gl.FLOAT
     const normalize = false
     const stride = 0
@@ -188,12 +204,12 @@ export class ShaderProgram {
   }
 
   bindBuffer(buffer: WebGLBuffer) {
-    const { gl } = this
+    const { _gl: gl } = this
     gl.bindBuffer(gl.ARRAY_BUFFER, buffer)
   }
 
   _createBuffer() {
-    const buffer = this.gl.createBuffer()!
+    const buffer = this._gl.createBuffer()!
     this.bindBuffer(buffer)
     return buffer
   }
