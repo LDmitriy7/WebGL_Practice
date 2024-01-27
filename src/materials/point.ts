@@ -5,12 +5,16 @@ import { Gl } from "../gl"
 export class PointMaterial {
   pointSize = 1
   color: Vec4 = [1, 1, 1, 1]
-  resolution: Vec2
   private shader: PointShader
 
   constructor(gl: Gl) {
     this.shader = PointShader.get(gl)
-    this.resolution = [gl.canvas.width, gl.canvas.height]
+    this.updateResolution()
+  }
+
+  updateResolution() {
+    const canvas = this.shader.canvas
+    this.shader.resolution = [canvas.width, canvas.height]
   }
 
   draw(position: Vec2) {
@@ -22,6 +26,5 @@ export class PointMaterial {
     shader.use()
     shader.pointSize = this.pointSize
     shader.color = this.color
-    shader.resolution = this.resolution
   }
 }

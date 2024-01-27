@@ -1,7 +1,7 @@
-import { gl } from "../loader"
+import { _gl } from "../loader"
 import { ImageShaderProgram } from "../_temp/image"
 
-const shaderProgram = ImageShaderProgram.get(gl)
+const shaderProgram = ImageShaderProgram.get(_gl)
 var image = new Image()
 image.src = "leaves.jpg"
 image.onload = () => shaderProgram.draw(image)

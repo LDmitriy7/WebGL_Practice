@@ -25,8 +25,7 @@ export class PointShader extends Shader {
   }
 
   draw(position: Vec2) {
-    const gl = new Gl(this.program.ctx)
     this.position = position
-    gl.drawPoints(1)
+    this.program.gl.drawPoints(1)
   }
 }

@@ -2,7 +2,10 @@ import { ShaderSources } from "../../utils"
 import { Program } from "../../gl/program"
 import { Gl } from "../../gl"
 
-type ShaderConstructor<T> = { instance?: Shader; new (program: Program): T }
+type ShaderConstructor<T> = {
+  instance?: Shader
+  new (program: Program): T
+}
 
 export class Shader {
   static instance?: Shader
@@ -21,5 +24,9 @@ export class Shader {
 
   use() {
     this.program.use()
+  }
+
+  get canvas() {
+    return this.program.gl.canvas
   }
 }

@@ -1,12 +1,14 @@
+import { Gl } from "./gl"
 import { createCanvas, getGl } from "./utils"
 
 const canvas = createCanvas()
-const gl = getGl(canvas)
+const _gl = getGl(canvas)
+const gl = new Gl(_gl)
 
-gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA)
-gl.enable(gl.BLEND)
-gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true)
-gl.clearColor(0, 0, 0, 0)
-gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT)
+_gl.blendFunc(_gl.SRC_ALPHA, _gl.ONE_MINUS_SRC_ALPHA)
+_gl.enable(_gl.BLEND)
+_gl.pixelStorei(_gl.UNPACK_FLIP_Y_WEBGL, true)
+_gl.clearColor(0, 0, 0, 0)
+_gl.clear(_gl.COLOR_BUFFER_BIT | _gl.DEPTH_BUFFER_BIT)
 
-export { canvas, gl }
+export { canvas, _gl, gl }

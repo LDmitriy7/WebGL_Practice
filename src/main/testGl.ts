@@ -1,4 +1,4 @@
-import { gl as _gl, canvas } from "../loader"
+import { _gl as _gl, canvas } from "../loader"
 import { pointShaderSources } from "../materials/shaders/sources"
 import { Gl } from "../gl"
 import { elapse } from "./lib"

@@ -1,8 +1,8 @@
 import { CircleMaterial } from "../_temp/circle"
 import { Vec2, getMousePosition } from "../utils"
-import { canvas, gl } from "../loader"
+import { canvas, _gl } from "../loader"
 
-const material = new CircleMaterial(gl)
+const material = new CircleMaterial(_gl)
 material.canvasSize = [canvas.width, canvas.height]
 material.circleSize = 30
 material.color = [0, 1, 0, 1]
@@ -10,7 +10,7 @@ material.use()
 
 function draw(position: Vec2) {
   material.position = position
-  gl.drawArrays(gl.POINTS, 0, 1)
+  _gl.drawArrays(_gl.POINTS, 0, 1)
 }
 
 draw([0, 0])

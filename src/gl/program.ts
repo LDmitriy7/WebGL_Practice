@@ -1,3 +1,5 @@
+import { Gl } from "./gl"
+
 type Vec2 = [number, number]
 type Vec4 = [number, number, number, number]
 
@@ -6,6 +8,11 @@ export class Program {
 
   // TODO: private
   constructor(public ctx: WebGL2RenderingContext, public base: WebGLProgram) {}
+
+  // TODO:
+  get gl() {
+    return new Gl(this.ctx)
+  }
 
   getUniformLocation(name: string) {
     const { uniformLocations: locs } = this

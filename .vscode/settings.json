@@ -6,25 +6,6 @@
     "**/CVS": true,
     "**/.DS_Store": true,
     "**/Thumbs.db": true,
-    "**/*.meta": true,
-    "[!s]*/**": true,
-    "s[!r]*/**": true,
-    "sr[!c]*/**": true,
-    "src/[!m]*/**": true,
-    "src/m[!a]*/**": true,
-    "src/ma[!t]*/**": true,
-    "src/mat[!e]*/**": true,
-    "src/mate[!r]*/**": true,
-    "src/mater[!i]*/**": true,
-    "src/materi[!a]*/**": true,
-    "src/materia[!l]*/**": true,
-    "src/material[!s]*/**": true,
-    "src/materials/[!s]*/**": true,
-    "src/materials/s[!h]*/**": true,
-    "src/materials/sh[!a]*/**": true,
-    "src/materials/sha[!d]*/**": true,
-    "src/materials/shad[!e]*/**": true,
-    "src/materials/shade[!r]*/**": true,
-    "src/materials/shader[!s]*/**": true
+    "**/*.meta": true
   }
 }
