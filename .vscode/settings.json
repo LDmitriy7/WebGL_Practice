@@ -6,16 +6,6 @@
     "**/CVS": true,
     "**/.DS_Store": true,
     "**/Thumbs.db": true,
-    "**/*.meta": true,
-    "[!s]*/**": true,
-    "s[!r]*/**": true,
-    "sr[!c]*/**": true,
-    "src/[!_]*/**": true,
-    "src/_[!l]*/**": true,
-    "src/_l[!i]*/**": true,
-    "src/_li[!b]*/**": true,
-    "src/_lib[!s]*/**": true,
-    "src/_libs/[!g]*/**": true,
-    "src/_libs/g[!l]*/**": true
+    "**/*.meta": true
   }
 }

@@ -1,8 +1,4 @@
-class ShaderSources {
-  constructor(public vertex: string, public fragment: string) {}
-}
-
-const vertexSource = `
+const vertex = `
 uniform vec2 u_resolution;
 attribute vec2 a_position;
 
@@ -14,7 +10,7 @@ void main() {
 }
 `
 
-const solidFragmentSource = `
+const solidFragment = `
 precision highp float;
 uniform vec4 u_color;
 
@@ -24,8 +20,6 @@ void main()
 }
 `
 
-const shaderSources = {
-  solid: new ShaderSources(vertexSource, solidFragmentSource),
-}
+const sources = { vertex, solidFragment }
 
-export default shaderSources
+export default sources

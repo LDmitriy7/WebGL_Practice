@@ -1,16 +1,27 @@
 import {
   ShaderSources,
+  Vec2,
+  Vec4,
+  bindBuffer,
+  buildBuffer,
   buildFragmentShader,
   buildProgram,
   buildProgramFromSources,
   buildShader,
   buildVertexShader,
   compileShader,
+  createBuffer,
   createProgram,
   createShader,
   drawPoints,
   drawTriangles,
+  fillBuffer,
+  getAttrLocation,
   getResolution,
+  getUniformLocation,
+  setAttrPointer,
+  setUniformVec2,
+  setUniformVec4,
 } from "./lib"
 
 export class Gl {
@@ -22,6 +33,14 @@ export class Gl {
 
   get resolution() {
     return getResolution(this.gl)
+  }
+
+  getUniformLocation(program: WebGLProgram, name: string) {
+    return getUniformLocation(this.gl, program, name)
+  }
+
+  getAttrLocation(program: WebGLProgram, name: string) {
+    return getAttrLocation(this.gl, program, name)
   }
 
   drawPoints(count: number) {
@@ -62,5 +81,37 @@ export class Gl {
 
   buildProgramFromSources(sources: ShaderSources) {
     return buildProgramFromSources(this.gl, sources)
+  }
+
+  setUniformVec4(loc: WebGLUniformLocation, value: Vec4) {
+    setUniformVec4(this.gl, loc, value)
+  }
+
+  setUniformVec2(loc: WebGLUniformLocation, value: Vec2) {
+    setUniformVec2(this.gl, loc, value)
+  }
+
+  setResolution(loc: WebGLUniformLocation) {
+    this.setUniformVec2(loc, this.resolution)
+  }
+
+  createBuffer() {
+    return createBuffer(this.gl)
+  }
+
+  bindBuffer(buffer: WebGLBuffer) {
+    bindBuffer(this.gl, buffer)
+  }
+
+  setAttrPointer(loc: number, buffer: WebGLBuffer, componentSize?: number) {
+    return setAttrPointer(this.gl, loc, buffer, componentSize)
+  }
+
+  buildBuffer(loc: number, componentSize?: number) {
+    return buildBuffer(this.gl, loc, componentSize)
+  }
+
+  fillBuffer(buffer: WebGLBuffer, data: number[]) {
+    fillBuffer(this.gl, buffer, data)
   }
 }

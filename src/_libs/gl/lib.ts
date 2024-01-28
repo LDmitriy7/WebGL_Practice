@@ -1,4 +1,4 @@
-type Gl = WebGL2RenderingContext
+export type Gl = WebGL2RenderingContext
 
 export function drawPoints(gl: Gl, count: number) {
   gl.drawArrays(gl.POINTS, 0, count)
@@ -68,7 +68,78 @@ export function buildProgramFromSources(gl: Gl, sources: ShaderSources) {
   return program
 }
 
-export function getResolution(gl: Gl) {
+export function getResolution(gl: Gl): Vec2 {
   const canvas = gl.canvas
-  return [canvas.width, canvas.height] as const
+  return [canvas.width, canvas.height]
+}
+
+export function getUniformLocation(
+  gl: Gl,
+  program: WebGLProgram,
+  name: string
+) {
+  const loc = gl.getUniformLocation(program, name)
+  if (!loc) throw new Error(`Uniform ${name} not found`)
+  return loc
+}
+
+export function getAttrLocation(gl: Gl, program: WebGLProgram, name: string) {
+  const loc = gl.getAttribLocation(program, name)
+  if (loc == null) throw new Error(`Attribute ${name} not found`)
+  return loc
+}
+
+export type Vec2 = [number, number]
+export type Vec4 = [number, number, number, number]
+
+export function setUniformVec4(gl: Gl, loc: WebGLUniformLocation, value: Vec4) {
+  gl.uniform4f(loc, ...value)
+}
+
+export function setUniformVec2(gl: Gl, loc: WebGLUniformLocation, value: Vec2) {
+  gl.uniform2f(loc, ...value)
+}
+
+export function createBuffer(gl: Gl) {
+  const buffer = gl.createBuffer()
+  if (!buffer) throw new Error("Couldn't create buffer")
+  bindBuffer(gl, buffer)
+  return buffer
+}
+
+export function bindBuffer(gl: Gl, buffer: WebGLBuffer) {
+  gl.bindBuffer(gl.ARRAY_BUFFER, buffer)
+}
+
+export function setAttrPointer(
+  gl: Gl,
+  loc: number,
+  buffer: WebGLBuffer,
+  componentSize?: number
+) {
+  gl.enableVertexAttribArray(loc)
+  bindBuffer(gl, buffer)
+  const type = gl.FLOAT
+  const normalize = false
+  const stride = 0
+  const offset = 0
+  gl.vertexAttribPointer(
+    loc,
+    componentSize ?? 2,
+    type,
+    normalize,
+    stride,
+    offset
+  )
+}
+
+export function buildBuffer(gl: Gl, loc: number, componentSize?: number) {
+  const buffer = createBuffer(gl)
+  setAttrPointer(gl, loc, buffer, componentSize)
+  return buffer
+}
+
+export function fillBuffer(gl: Gl, buffer: WebGLBuffer, data: number[]) {
+  bindBuffer(gl, buffer)
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(data), gl.STATIC_DRAW)
 }
