@@ -1,15 +1,15 @@
-import { pointShaderSources } from "./sources/point"
-import { Vec2, Vec4 } from "../../utils"
-import { Gl } from "../../gl"
+import { Vec2, Vec4 } from "../utils"
+import { Gl } from "../gl"
 import { Shader } from "./shader"
+import { circleShaderSources } from "../shaderSources"
 
-export class PointShader extends Shader {
+export class CircleShader extends Shader {
   static get(gl: Gl) {
-    return this._get(gl, PointShader, pointShaderSources)
+    return this._get(gl, CircleShader, circleShaderSources)
   }
 
-  set pointSize(value: number) {
-    this.program.setUniform("u_pointSize", value)
+  set circleSize(value: number) {
+    this.program.setUniform("u_circleSize", value)
   }
 
   set color(value: Vec4) {

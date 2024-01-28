@@ -1,14 +1,13 @@
-import { PointShader } from "../shaders/point"
 import { Vec4, Vec2 } from "../utils"
 import { Gl } from "../gl"
+import { RectShader } from "../shaders/rect"
 
-export class PointMaterial {
-  pointSize = 1
+export class RectMaterial {
   color: Vec4 = [1, 1, 1, 1]
-  private shader: PointShader
+  private shader: RectShader
 
   constructor(gl: Gl) {
-    this.shader = PointShader.get(gl)
+    this.shader = RectShader.get(gl)
     this.update()
   }
 
@@ -19,7 +18,6 @@ export class PointMaterial {
   update() {
     const { shader } = this
     shader.use()
-    shader.pointSize = this.pointSize
     shader.color = this.color
     this.updateResolution()
   }

@@ -1,14 +1,14 @@
-import { PointShader } from "../shaders/point"
 import { Vec4, Vec2 } from "../utils"
 import { Gl } from "../gl"
+import { CircleShader } from "../shaders/circle"
 
-export class PointMaterial {
-  pointSize = 1
+export class CircleMaterial {
+  circleSize = 100
   color: Vec4 = [1, 1, 1, 1]
-  private shader: PointShader
+  private shader: CircleShader
 
   constructor(gl: Gl) {
-    this.shader = PointShader.get(gl)
+    this.shader = CircleShader.get(gl)
     this.update()
   }
 
@@ -19,7 +19,7 @@ export class PointMaterial {
   update() {
     const { shader } = this
     shader.use()
-    shader.pointSize = this.pointSize
+    shader.circleSize = this.circleSize
     shader.color = this.color
     this.updateResolution()
   }

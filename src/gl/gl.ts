@@ -3,7 +3,7 @@ import { Program } from "./program"
 import { Shader } from "./shader"
 
 export class Gl {
-  constructor(private base: WebGL2RenderingContext) {}
+  constructor(public base: WebGL2RenderingContext) {}
 
   get canvas() {
     return this.base.canvas
@@ -12,6 +12,11 @@ export class Gl {
   drawPoints(count: number) {
     const { base } = this
     base.drawArrays(base.POINTS, 0, count)
+  }
+
+  drawTriangles(vertexCount: number) {
+    const { base } = this
+    base.drawArrays(base.TRIANGLES, 0, vertexCount)
   }
 
   createProgramFromSources(sources: ShaderSources) {

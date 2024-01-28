@@ -1,4 +1,4 @@
-import { ShaderSources } from "../../../utils"
+import { ShaderSources } from "../utils"
 
 const vSource = `
 uniform vec2 u_resolution;

@@ -1,6 +1,6 @@
-import { ShaderSources } from "../../utils"
-import { Program } from "../../gl/program"
-import { Gl } from "../../gl"
+import { ShaderSources } from "../utils"
+import { Program } from "../gl/program"
+import { Gl } from "../gl"
 
 type ShaderConstructor<T> = {
   instance?: Shader

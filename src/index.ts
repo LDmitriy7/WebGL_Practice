@@ -1,1 +1,1 @@
-import "./main/drawPoints"
+import "./main/new"

@@ -1,8 +1,8 @@
 import { gl } from "../loader"
 import { CircleMaterial } from "../materials/circle"
+import { RectMaterial } from "../materials/rect"
 
-const material = new CircleMaterial(gl)
-material.circleSize = 30
+const material = new RectMaterial(gl)
 material.color = [0, 1, 0, 1]
 
 material.update()
