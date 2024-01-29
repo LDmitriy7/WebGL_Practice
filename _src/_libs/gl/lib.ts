@@ -1,4 +1,6 @@
 export type Gl = WebGL2RenderingContext
+export type Vec2 = [number, number]
+export type Vec4 = [number, number, number, number]
 
 export function drawPoints(gl: Gl, count: number) {
   gl.drawArrays(gl.POINTS, 0, count)
@@ -89,11 +91,28 @@ export function getAttrLocation(gl: Gl, program: WebGLProgram, name: string) {
   return loc
 }
 
-export type Vec2 = [number, number]
-export type Vec4 = [number, number, number, number]
+export function setUniform(gl: Gl, loc: WebGLUniformLocation, value: number) {
+  gl.uniform1f(loc, value)
+}
+
+export function setUniformInt(
+  gl: Gl,
+  loc: WebGLUniformLocation,
+  value: number
+) {
+  gl.uniform1i(loc, value)
+}
 
 export function setUniformVec4(gl: Gl, loc: WebGLUniformLocation, value: Vec4) {
   gl.uniform4f(loc, ...value)
+}
+
+export function setUniformMat3(
+  gl: Gl,
+  loc: WebGLUniformLocation,
+  value: Float32List
+) {
+  gl.uniformMatrix3fv(loc, false, value)
 }
 
 export function setUniformVec2(gl: Gl, loc: WebGLUniformLocation, value: Vec2) {

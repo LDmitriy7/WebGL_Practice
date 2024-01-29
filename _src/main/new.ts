@@ -13,7 +13,9 @@ gl.setUniformVec4(locs.color, [1, 0, 0, 1])
 const positionBuffer = gl.buildBuffer(locs.position)
 setRectPositions(0, 0, 100, 200)
 gl.drawTriangles(6)
-setRectPositions(300, 0, 100, 200)
+gl.setUniformVec2(locs.translation, [200, 100])
+gl.setUniform(locs.rotation, 30)
+gl.setUniformVec2(locs.scale, [0.5, 2])
 gl.drawTriangles(6)
 
 function setRectPositions(x: number, y: number, width: number, height: number) {

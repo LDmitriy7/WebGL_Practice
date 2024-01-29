@@ -73,6 +73,10 @@ function getAttrLocation(gl: GL, program: WebGLProgram, key: string) {
   return loc
 }
 
+export function toRadians(degrees: number) {
+  return (Math.PI / 180) * degrees
+}
+
 export type Vec2 = [number, number]
 export type Vec4 = [number, number, number, number]
 

@@ -1,16 +1,7 @@
 import { Gl, getAttrLocation, getUniformLocation } from "../gl/lib"
-import sources from "../shaderSources"
+import { ShaderSources } from "./base"
 
-abstract class ShaderSources {
-  constructor(public vertex: string, public fragment: string) {}
-
-  abstract getLocations(
-    gl: Gl,
-    program: WebGLProgram
-  ): Record<string, WebGLUniformLocation>
-}
-
-class SolidShaderSource extends ShaderSources {
+export class SolidShaderSource extends ShaderSources {
   getLocations(gl: Gl, program: WebGLProgram) {
     const getUniformLoc = (name: string) =>
       getUniformLocation(gl, program, name)
@@ -18,13 +9,10 @@ class SolidShaderSource extends ShaderSources {
     return {
       color: getUniformLoc("u_color"),
       resolution: getUniformLoc("u_resolution"),
+      translation: getUniformLoc("u_translation"),
+      rotation: getUniformLoc("u_rotation"),
+      scale: getUniformLoc("u_scale"),
       position: getAttrLoc("a_position"),
     }
   }
 }
-
-const shaderSources = {
-  solid: new SolidShaderSource(sources.vertex, sources.solidFragment),
-}
-
-export default shaderSources

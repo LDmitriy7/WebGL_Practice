@@ -20,6 +20,9 @@ import {
   getResolution,
   getUniformLocation,
   setAttrPointer,
+  setUniform,
+  setUniformInt,
+  setUniformMat3,
   setUniformVec2,
   setUniformVec4,
 } from "./lib"
@@ -83,8 +86,20 @@ export class Gl {
     return buildProgramFromSources(this.gl, sources)
   }
 
+  setUniform(loc: WebGLUniformLocation, value: number) {
+    setUniform(this.gl, loc, value)
+  }
+
+  setUniformInt(loc: WebGLUniformLocation, value: number) {
+    setUniformInt(this.gl, loc, value)
+  }
+
   setUniformVec4(loc: WebGLUniformLocation, value: Vec4) {
     setUniformVec4(this.gl, loc, value)
+  }
+
+  setUniformMat3(loc: WebGLUniformLocation, value: Float32List) {
+    setUniformMat3(this.gl, loc, value)
   }
 
   setUniformVec2(loc: WebGLUniformLocation, value: Vec2) {
