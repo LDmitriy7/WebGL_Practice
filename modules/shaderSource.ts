@@ -1,6 +1,5 @@
-import { Gl, ShaderSource } from "../modules/gl-manager/types"
-import "./loader"
-import { getAttrLoc, getUniformLoc } from "../modules/gl-manager/lib"
+import { Gl } from "./gl-manager/types"
+import { getAttrLoc, getUniformLoc } from "./gl-manager/lib"
 
 const vSource = `
 attribute vec2 aVertexPosition;
@@ -10,7 +9,6 @@ varying vec2 vTextureCoord;
 
 void main(void) {
   gl_Position = vec4((uProjectionMatrix * vec3(aVertexPosition, 1)).xy, 0, 1);
-  gl_PointSize = 100.0;
   vTextureCoord = aTextureCoord;
 }
 `
@@ -26,6 +24,7 @@ void main(void) {
   gl_FragColor = texture2D(uSampler, vTextureCoord);
 }
 `
+
 // TODO: use glm?
 function getLocs(gl: Gl, program: WebGLProgram) {
   const u = (name: string) => getUniformLoc(gl, program, name)

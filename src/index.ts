@@ -1,9 +1,9 @@
+import "./loader"
 import { mat3 } from "gl-matrix"
 import { Vec2 } from "../modules/gl-manager/types"
-import "./loader"
 import { glm } from "./loader"
 import { image, setTexture } from "./texture"
-import { shaderSource } from "./shader"
+import { shaderSource } from "../modules/shaderSource"
 
 const textureUnit = 0
 const program = glm.buildProgram(shaderSource)
