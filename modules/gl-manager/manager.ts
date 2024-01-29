@@ -13,11 +13,11 @@ export class GlManager {
   }
 
   getUniformLoc(program: WebGLProgram, name: string) {
-    return lib.getUniformLocation(this.gl, program, name)
+    return lib.getUniformLoc(this.gl, program, name)
   }
 
   getAttrLoc(program: WebGLProgram, name: string) {
-    return lib.getAttrLocation(this.gl, program, name)
+    return lib.getAttrLoc(this.gl, program, name)
   }
 
   drawPoints(count: number) {
@@ -56,7 +56,7 @@ export class GlManager {
     lib.setResolution(this.gl, loc)
   }
 
-  buildBuffer(attrLoc: number, options: AttrPointerOptions) {
+  buildBuffer(attrLoc: number, options?: AttrPointerOptions) {
     return lib.buildBuffer(this.gl, attrLoc, options)
   }
 

@@ -5,6 +5,8 @@ const canvas = createCanvas()
 const _gl = getGl(canvas)
 const gl = new Gl(_gl)
 
+// TODO: to gl manager
+
 _gl.blendFunc(_gl.SRC_ALPHA, _gl.ONE_MINUS_SRC_ALPHA)
 _gl.enable(_gl.BLEND)
 _gl.pixelStorei(_gl.UNPACK_FLIP_Y_WEBGL, true)

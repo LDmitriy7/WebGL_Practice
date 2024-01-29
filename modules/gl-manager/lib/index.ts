@@ -18,17 +18,13 @@ export function setResolution(gl: Gl, loc: WebGLUniformLocation) {
   setUniformVec2(gl, loc, getResolution(gl))
 }
 
-export function getUniformLocation(
-  gl: Gl,
-  program: WebGLProgram,
-  name: string
-) {
+export function getUniformLoc(gl: Gl, program: WebGLProgram, name: string) {
   const loc = gl.getUniformLocation(program, name)
   if (!loc) throw new Error(`Uniform ${name} not found`)
   return loc
 }
 
-export function getAttrLocation(gl: Gl, program: WebGLProgram, name: string) {
+export function getAttrLoc(gl: Gl, program: WebGLProgram, name: string) {
   const loc = gl.getAttribLocation(program, name)
   if (loc == -1) throw new Error(`Attribute ${name} not found`)
   return loc
