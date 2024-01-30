@@ -1,13 +1,15 @@
 import "./loader"
 import { mat3 } from "gl-matrix"
-import { Vec2 } from "../modules/gl-manager/types"
+import { Gl, Vec2, Vec4 } from "../modules/gl-manager/types"
 import { glm } from "./loader"
-import { image, setTexture } from "./texture"
+import { image } from "./texture"
 import { shaderSource } from "../modules/shaderSource"
+import { bindTexture, pickTextureUnit } from "../modules/gl-manager/lib"
 
 const textureUnit = 0
 const program = glm.buildProgram(shaderSource)
 const locs = shaderSource.getLocs(glm.gl, program)
+const texture = glm.buildTexture()
 
 const textureCoords: Vec2[] = [
   [0.0, 1.0],
@@ -61,7 +63,7 @@ const positionBuffer = glm.buildBuffer(locs.vertexPosition)
 glm.fillBuffer(positionBuffer, vertexPositions.flat())
 
 function main() {
-  setTexture(image, textureUnit)
+  glm.fillTexture(texture, image, textureUnit)
   glm.drawTriangles(6)
 }
 

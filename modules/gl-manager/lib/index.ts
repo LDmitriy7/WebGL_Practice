@@ -33,4 +33,5 @@ export function getAttrLoc(gl: Gl, program: WebGLProgram, name: string) {
 export * from "./buffer"
 export * from "./program"
 export * from "./shader"
+export * from "./texture"
 export * from "./uniform"

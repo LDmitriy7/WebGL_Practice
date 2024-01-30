@@ -63,4 +63,16 @@ export class GlManager {
   fillBuffer(buffer: WebGLBuffer, data: number[]) {
     lib.fillBuffer(this.gl, buffer, data)
   }
+
+  buildTexture() {
+    return lib.buildTexture(this.gl)
+  }
+
+  fillTexture(
+    texture: WebGLTexture,
+    image?: HTMLImageElement,
+    textureUnit?: number
+  ) {
+    lib.fillTexture(this.gl, texture, image, textureUnit)
+  }
 }
