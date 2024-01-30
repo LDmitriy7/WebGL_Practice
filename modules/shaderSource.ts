@@ -21,17 +21,26 @@ uniform sampler2D uSampler;
 uniform vec4 uColor;
 
 void main(void) {
-  gl_FragColor = texture2D(uSampler, vTextureCoord);
+  gl_FragColor = texture2D(uSampler, vTextureCoord) * uColor;
 }
 `
 
+export type ShaderLocs = {
+  sampler: WebGLUniformLocation
+  projectionMatrix: WebGLUniformLocation
+  color: WebGLUniformLocation
+  textureCoord: number
+  vertexPosition: number
+}
+
 // TODO: use glm?
-function getLocs(gl: Gl, program: WebGLProgram) {
+function getLocs(gl: Gl, program: WebGLProgram): ShaderLocs {
   const u = (name: string) => getUniformLoc(gl, program, name)
   const a = (name: string) => getAttrLoc(gl, program, name)
   return {
     sampler: u("uSampler"),
     projectionMatrix: u("uProjectionMatrix"),
+    color: u("uColor"),
     textureCoord: a("aTextureCoord"),
     vertexPosition: a("aVertexPosition"),
   }
