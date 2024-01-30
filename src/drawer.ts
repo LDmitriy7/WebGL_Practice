@@ -2,9 +2,13 @@ import { mat3 } from "gl-matrix"
 import { Gl, Vec2, Vec4 } from "../modules/gl-manager/types"
 import { RECT_COORDS, Shader } from "../modules/shader"
 import { drawTriangles, getResolution } from "../modules/gl-manager/lib"
+import { expose } from "../modules/global"
 
 const RECT_VERTEX_POSITIONS = RECT_COORDS.map((i) => [i[0] - 0.5, i[1] - 0.5])
 const TEXTURE_COORDS = RECT_COORDS
+
+const IMAGES: HTMLImageElement[] = []
+expose({ IMAGES })
 
 export class Drawer {
   color: Vec4 = [1, 1, 1, 1]
@@ -35,17 +39,41 @@ export class Drawer {
   }
 
   drawImage(image: HTMLImageElement, textureOffsetX = 0) {
+    let imageIndex = IMAGES.indexOf(image)
+
+    if (imageIndex == -1) {
+      imageIndex = IMAGES.length
+      this.shader.textureUnit = imageIndex
+      this.shader.image = image
+      IMAGES.push(image)
+    } else {
+      this.shader.textureUnit = imageIndex
+    }
+
     const vertexPositions = RECT_VERTEX_POSITIONS.map((i) => [
       i[0] * image.width,
       i[1] * image.height,
     ]).flat()
-    this.shader.image = image
     this.shader.textureCoords = TEXTURE_COORDS.map((i) => [
       i[0] - textureOffsetX,
       i[1],
     ]).flat()
     this.draw(vertexPositions)
   }
+
+  // _drawImage(textureOffsetX = 0) {
+  //   const { image } = this
+  //   if (!image) throw new Error("No image")
+  //   const vertexPositions = RECT_VERTEX_POSITIONS.map((i) => [
+  //     i[0] * image.width,
+  //     i[1] * image.height,
+  //   ]).flat()
+  //   this.shader.textureCoords = TEXTURE_COORDS.map((i) => [
+  //     i[0] - textureOffsetX,
+  //     i[1],
+  //   ]).flat()
+  //   this.draw(vertexPositions)
+  // }
 }
 
 function projectMatrix(

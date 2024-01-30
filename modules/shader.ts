@@ -2,6 +2,7 @@ import { mat3 } from "gl-matrix"
 import { GlManager } from "./gl-manager"
 import { ShaderLocs, shaderSource } from "./shaderSource"
 import { Gl, Vec2, Vec4 } from "./gl-manager/types"
+import { pickTextureUnit } from "./gl-manager/lib"
 
 export const RECT_COORDS: Vec2[] = [
   [0.0, 1.0],
@@ -19,8 +20,8 @@ type ShaderBuffers = {
 
 export class Shader {
   program: WebGLProgram
+  private _textureUnit = 0
   private glm: GlManager
-  private textureUnit = 0
   private texture: WebGLTexture
   private locs: ShaderLocs
   private buffers: ShaderBuffers
@@ -45,6 +46,14 @@ export class Shader {
     this.fillTexture()
     this.fillTextureCoordBuffer()
     this.fillVertexPositionBuffer()
+  }
+
+  public get textureUnit() {
+    return this._textureUnit
+  }
+  public set textureUnit(value) {
+    this._textureUnit = value
+    this.updateTextureUnit()
   }
 
   get image() {
@@ -97,6 +106,12 @@ export class Shader {
   private updateProjectionMatrix() {
     const { locs, glm } = this
     glm.setUniformMat3(locs.projectionMatrix, this.projectionMatrix)
+  }
+
+  private updateTextureUnit() {
+    const { glm, locs } = this
+    // pickTextureUnit(glm.gl, this.textureUnit) // TODO:
+    glm.setUniformInt(locs.sampler, this.textureUnit)
   }
 
   private updateColor() {
