@@ -15,14 +15,16 @@ let textureOffset = 0
 
 function draw() {
   drawer.drawImage(image, textureOffset)
+  drawer.drawImage(image2, textureOffset) // !!
+  drawer.drawImage(image, textureOffset) // !
   drawer.drawImage(image2, textureOffset)
   textureOffset += 0.0001
 }
 
 function main() {
-  requestAnimationFrame(main)
-  // draw()
-  elapse(draw)
+  // requestAnimationFrame(main)
+  draw()
+  // elapse(draw)
 }
 
 image.onload = () => {

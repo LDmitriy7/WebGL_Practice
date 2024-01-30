@@ -35,6 +35,9 @@ export class Drawer {
     )
     shader.projectionMatrix = this.projectionMatrix
     shader.color = this.color
+    console.log(
+      this.gl.getUniform(this.shader.program, this.shader.locs.sampler)
+    ) // TODO:
     drawTriangles(this.gl, vertexPositions.length / 2)
   }
 
@@ -42,12 +45,14 @@ export class Drawer {
     let imageIndex = IMAGES.indexOf(image)
 
     if (imageIndex == -1) {
+      console.log("!")
       imageIndex = IMAGES.length
       this.shader.textureUnit = imageIndex
       this.shader.image = image
       IMAGES.push(image)
     } else {
       this.shader.textureUnit = imageIndex
+      // this.shader.image = image // fix
     }
 
     const vertexPositions = RECT_VERTEX_POSITIONS.map((i) => [
