@@ -84,7 +84,7 @@ export function fillTexture(
   textureUnit?: number
 ) {
   pickTextureUnit(gl, textureUnit)
-  bindTexture(gl, texture) // ?!
+  bindTexture(gl, texture)
   if (image) fillCurrentTexture(gl, image)
   else fillCurrentTextureFromColor(gl, [1, 1, 1, 1])
 }

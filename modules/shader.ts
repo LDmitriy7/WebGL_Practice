@@ -20,9 +20,9 @@ type ShaderBuffers = {
 
 export class Shader {
   program: WebGLProgram
+  texture: WebGLTexture
   private _textureUnit = 0
   private glm: GlManager
-  private texture: WebGLTexture
   private locs: ShaderLocs
   private buffers: ShaderBuffers
   private _image?: HTMLImageElement
@@ -110,7 +110,6 @@ export class Shader {
 
   private updateTextureUnit() {
     const { glm, locs } = this
-    // pickTextureUnit(glm.gl, this.textureUnit) // TODO:
     glm.setUniformInt(locs.sampler, this.textureUnit)
   }
 
