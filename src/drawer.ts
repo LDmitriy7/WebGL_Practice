@@ -3,6 +3,7 @@ import { Gl, Vec2, Vec4 } from "../modules/gl-manager/types"
 import { RECT_COORDS, Shader } from "../modules/shader"
 import { drawTriangles, getResolution } from "../modules/gl-manager/lib"
 import { expose } from "../modules/global"
+import { glm } from "./loader"
 
 const RECT_VERTEX_POSITIONS = RECT_COORDS.map((i) => [i[0] - 0.5, i[1] - 0.5])
 const TEXTURE_COORDS = RECT_COORDS
@@ -47,12 +48,14 @@ export class Drawer {
     if (imageIndex == -1) {
       console.log("!")
       imageIndex = IMAGES.length
+      const texture = glm.buildTexture()
+      // if (imageIndex == 1) texture.test = true
+      this.shader.texture = texture
       this.shader.textureUnit = imageIndex
       this.shader.image = image
       IMAGES.push(image)
     } else {
       this.shader.textureUnit = imageIndex
-      // this.shader.image = image // fix
     }
 
     const vertexPositions = RECT_VERTEX_POSITIONS.map((i) => [
